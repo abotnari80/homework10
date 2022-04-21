@@ -1,7 +1,7 @@
 ﻿int[] info = new int[] {2, 3, 3, 1};
 int[] data = new int[] {0, 1, 1, 1, 1, 0, 0, 0, 1};
 int[] tmpResult = new int[4];
-int[] result = new int[4];
+int[] result = new int[] {1, 1, 1, 1};
 int[] answer = new int[4];
 
 int x = 0;
@@ -16,7 +16,6 @@ for (int i = 0; i < 4; i++)
         tmpResult[i] = (tmpResult[i] * 10) + data[j];
         z++;
     }
-    System.Console.WriteLine();
     y = z;
 }
 
@@ -26,15 +25,20 @@ int n = 2;
 for (int i = 0; i < 4; i++)
 {
     if (tmpResult[i] > 0)
-    answer[i] = result[i] + answer[i];
-    tmp = tmpResult[i] % 10;
-    result[i] = tmp * 1;
+    {
+        tmp = tmpResult[i] % 10;
+        tmpResult[i] = tmpResult[i] / 10;
+        result[i] = tmp * 1;
+        answer[i] = result[i] + answer[i];
+    }
+    else result[i] = 0;
     while (tmpResult[i] > 0)
     {
-        answer[i] = result[i] + answer[i];
         tmp = tmpResult[i] % 10;
-        n = n * n;
+        tmpResult[i] = tmpResult[i] / 10;
         result[i] = tmp * n;
+        n = n * n;
+        answer[i] = result[i] + answer[i];
     }
 }
 
